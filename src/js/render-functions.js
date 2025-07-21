@@ -49,7 +49,6 @@ export function createGallery(images) {
 
   hideLoader();
   lightbox.refresh();
-  return;
 }
 
 const loaderCondition = refs.loader.classList;
