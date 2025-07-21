@@ -3,7 +3,6 @@ import iziToast from 'izitoast';
 import { getImagesByQuery } from './js/pixabay-api';
 import { refs } from './js/refs';
 import {
-  lightbox,
   createGallery,
   showLoader,
   hideLoader,
@@ -27,6 +26,7 @@ function onCreateGallery(event) {
 
   clearMarkUp();
   showLoader();
+  inputEl.value = '';
 
   getImagesByQuery(searchedValue)
     .then(data => {
@@ -41,11 +41,6 @@ function onCreateGallery(event) {
         return;
       }
       const markup = createGallery(data.hits);
-      refs.galleryList.innerHTML = markup;
-      lightbox.refresh();
-
-      hideLoader();
-      inputEl.value = '';
     })
     .catch(err => {
       hideLoader();
@@ -53,10 +48,3 @@ function onCreateGallery(event) {
     });
 }
 refs.inputForm.addEventListener('submit', onCreateGallery);
-
-function renderPage() {
-  const gallery = document.querySelector('.js-gallery');
-  gallery.insertAdjacentHTML('beforeend', addImages);
-
-  lightbox.refresh();
-}

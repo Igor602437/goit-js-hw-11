@@ -1,13 +1,13 @@
 import SimpleLightbox from 'simplelightbox';
 import { refs } from './refs';
 
-export const lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
 
 export function createGallery(images) {
-  return images
+  const markup = images
     .map(
       ({
         largeImageURL,
@@ -44,11 +44,19 @@ export function createGallery(images) {
   `
     )
     .join('');
+
+  refs.galleryList.innerHTML = markup;
+
+  hideLoader();
+  lightbox.refresh();
+  return;
 }
 
 const loaderCondition = refs.loader.classList;
 
-export const showLoader = () => loaderCondition.remove('is-hidden');
+export const showLoader = () => {
+  loaderCondition.remove('is-hidden');
+};
 
 export const hideLoader = () => loaderCondition.add('is-hidden');
 
